@@ -6,6 +6,22 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Kvittering {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255) //varchar(191)
+  description String   @db.VarChar(255)
+  amount      Decimal  @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  light       Light    @default(YELLOW)
+}
+
+enum Light {
+  GREEN
+  YELLOW
+  RED
 }
